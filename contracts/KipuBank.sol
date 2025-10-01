@@ -89,4 +89,17 @@ contract KipuBank {
     function verBoveda() external view returns (uint monto_) {
         monto_ = boveda[msg.sender];
     }
+    //@notice funcion para ver la totalidad de los depositos
+    function verTotalDepositos() external view returns (uint) {
+        return depositos;
+    }
+    //@notice funcion para ver la totalidad de los retiros
+    function verTotalRetiros() external view returns (uint) {
+        return retiros;
+    }
+    //@notice funcion para ver el saldo total del contrato
+    function verTotalContrato() external view returns (uint) {
+        return totalContrato;
+    }
+
 }
