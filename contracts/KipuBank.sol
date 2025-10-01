@@ -32,6 +32,10 @@ contract KipuBank {
     error KipuBank_DepositoRechazado(address titular, uint monto);
     //@notice Error monto insuficiente
     error KipuBank_MontoInsuficiente(address titular, uint monto);
+    //@notice Error por sobrepasarse del limite
+    error KipuBank_LimiteExcedido(uint monto);
+    //@notice error por saldo insuficiente
+    error KipuBank_SaldoInsuficiente(address titular, uint monto);
 
     //@notice constructor del contrato
     //@param _limite limite global que se permite por transaccion
@@ -44,13 +48,13 @@ contract KipuBank {
 
     //@notice moficador para verificar los depositos
     modifier verificarDepositos(uint _monto) {
-        if (_monto + totalContrato > bankCap) revert KipuBank_DepositoRechazado(msg.sender, _monto);
+        if (_monto + totalContrato > bankCap) revert KipuBank_LimiteExcedido(_monto);
         _;
     }
     //@notice modificador para verificar los retiros
     modifier verificarRetiro(uint _monto) {
         if (_monto > umbral) revert KipuBank_ExtraccionRechazada(msg.sender, _monto);
-        if (_monto > boveda[msg.sender]) revert KipuBank_ExtraccionRechazada(msg.sender, _monto);
+        if (_monto > boveda[msg.sender]) revert KipuBank_LimiteExcedido(_monto);
         _;
     }
     //@notice funcion privada para realizar el retiro efectivo de fondos
@@ -71,7 +75,7 @@ contract KipuBank {
         _retirarFondos(_monto);
     }
     //@notice funcion para depositar en la boveda
-    //@dev es payable y esa el modificador de verificarDepositos
+    //@dev es payable y usa el modificador de verificarDepositos
     function depositarEnBoveda() external payable verificarDepositos(msg.value) {
         boveda[msg.sender] = boveda[msg.sender] + msg.value;        
         depositos = depositos + 1;
@@ -79,6 +83,7 @@ contract KipuBank {
         emit KipuBank_DepositoRealizado(msg.sender, msg.value);
     }
     //@notice funcion para ver el saldo guardado en el boveda
+    //@return monto_ devuelve el saldo depositado por cada address
     function verBoveda() external view returns (uint monto_) {
         monto_ = boveda[msg.sender];
     }

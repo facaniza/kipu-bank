@@ -51,6 +51,17 @@
 			{
 				"inputs": [
 					{
+						"internalType": "uint256",
+						"name": "monto",
+						"type": "uint256"
+					}
+				],
+				"name": "KipuBank_LimiteExcedido",
+				"type": "error"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "address",
 						"name": "titular",
 						"type": "address"
@@ -62,6 +73,22 @@
 					}
 				],
 				"name": "KipuBank_MontoInsuficiente",
+				"type": "error"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "titular",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "monto",
+						"type": "uint256"
+					}
+				],
+				"name": "KipuBank_SaldoInsuficiente",
 				"type": "error"
 			},
 			{
@@ -164,11 +191,11 @@
 	},
 	"sources": {
 		"contracts/KipuBank.sol": {
-			"keccak256": "0xae28175e4b868e8933e93516a830f9a76e7ced4c0cb2ed9bf5c6bc0963cbc091",
+			"keccak256": "0xfa22f8909a9ac085b4dd25873b270512ff591caa8536bcdb5f2f48a6ac5d50ac",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://04f0b59a133ff6984513ecd57c7645b7514addd2398b494fbb762e566fdd4952",
-				"dweb:/ipfs/QmSpz8EkcqpWfSwHYNfVJqoh1zfEd5E66JonSebGprJKKh"
+				"bzz-raw://8d43c1d082ca2e1154747c65a8192e02411e1fb9f32633e2b0e7989b763e19af",
+				"dweb:/ipfs/QmYFD4wrr16m3vUNTPw4JTWNsF69ZTdewJ4t59PuPDYBH3"
 			]
 		}
 	},
