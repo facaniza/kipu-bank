@@ -8,7 +8,7 @@ contract KipuBank {
 
     //@notice umbral para fijo para transaccion
     //@dev el umbral es arbitrario y debe ser establecido segun criterios
-    uint constant umbral = 50;
+    uint immutable umbral;
     //@notice limite global de deposito
     uint immutable bankCap;
     //@notice cantidad de depositos del contrato
@@ -46,6 +46,7 @@ contract KipuBank {
     //@param _limite limite global que se permite por transaccion
     constructor(uint _limite) {
         bankCap = _limite;
+        umbral = 50;
     }
 
     //@notice moficador para verificar los depositos
