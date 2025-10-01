@@ -84,4 +84,4 @@ Desde allí podés interactuar con todas sus funciones.
 
 En el siguiente enlace vas a poder encontrar la dirección del contrato en el explorador de bloques:
 ```url
-https://sepolia.etherscan.io/address/0xf825B6b0515B8F29b95bc22564Fd0D2556c9eef0
+https://sepolia.etherscan.io/address/0x0ab912A01e7A3B613b86E820c8e23d1f058E677E

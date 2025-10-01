@@ -7,7 +7,8 @@ pragma solidity 0.8.30;
 contract KipuBank {
 
     //@notice umbral para fijo para transaccion
-    uint constant umbral = 10;
+    //@dev el umbral es arbitrario y debe ser establecido segun criterios
+    uint constant umbral = 50;
     //@notice limite global de deposito
     uint immutable bankCap;
     //@notice cantidad de depositos del contrato
