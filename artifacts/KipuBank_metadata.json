@@ -172,6 +172,45 @@
 				],
 				"stateMutability": "view",
 				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "verTotalContrato",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "verTotalDepositos",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "verTotalRetiros",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -202,11 +241,11 @@
 	},
 	"sources": {
 		"contracts/KipuBank.sol": {
-			"keccak256": "0x3ab75edd535e8835f05d20968312eed6dc52dec0ba83c5c5405c3b6121e25a9e",
+			"keccak256": "0x240cbcb3b20dd824dc6c5128e39524eaf0d1ce575d190f5c16d4b20812749721",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://84189f4872b8b1d812434acd07b8f255a63587144500b4aaaf032927084c75b4",
-				"dweb:/ipfs/QmfDMfDKB9AWp1uP36cmEy2T2vqFhFw2JAoKJVLbFXvZih"
+				"bzz-raw://2ae2a22ab84483f010e1073c228271dcb85147180a1553210e29c3a9c5c514e4",
+				"dweb:/ipfs/Qma8TU8aw9AzCuVbz3EG1HR5UVS2WtcF4oqNoinH2j61Uv"
 			]
 		}
 	},
