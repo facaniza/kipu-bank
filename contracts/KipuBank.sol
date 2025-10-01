@@ -11,11 +11,11 @@ contract KipuBank {
     //@notice limite global de deposito
     uint immutable bankCap;
     //@notice cantidad de depositos del contrato
-    uint private depositos;
+    uint private depositos = 0;
     //@notice cantidad de retiros del contrato
-    uint private retiros;
+    uint private retiros = 0;
     //@notice total de ether depositado en el contrato
-    uint private totalContrato;
+    uint private totalContrato = 0;
 
     //@notice estructura que almacena por titular el monto que posee en la boveda
     mapping (address titular => uint monto) private boveda;
@@ -38,23 +38,25 @@ contract KipuBank {
     error KipuBank_SaldoInsuficiente(address titular, uint monto);
     //@notice Error por umbral excedido
     error KipuBank_UmbralExcedido(uint monto);
+    //@notice Error monto cero
+    error KipuBank_MontoCero(address titular);
 
     //@notice constructor del contrato
     //@param _limite limite global que se permite por transaccion
     constructor(uint _limite) {
         bankCap = _limite;
-        depositos = 0;
-        retiros = 0;
-        totalContrato = 0;
     }
 
     //@notice moficador para verificar los depositos
     modifier verificarDepositos(uint _monto) {
-        if (_monto + totalContrato > bankCap) revert KipuBank_LimiteExcedido(_monto);
+        if(_monto <= 0) revert KipuBank_MontoCero(msg.sender);
+        if (_monto + totalContrato >= bankCap) revert KipuBank_LimiteExcedido(_monto);
         _;
     }
     //@notice modificador para verificar los retiros
+    //@dev el umbral solo se aplica a los retiros de boveda
     modifier verificarRetiro(uint _monto) {
+        if(_monto <= 0) revert KipuBank_MontoCero(msg.sender);
         if (_monto > umbral) revert KipuBank_UmbralExcedido(_monto);
         if (_monto > boveda[msg.sender]) revert KipuBank_SaldoInsuficiente(msg.sender, _monto);
         _;

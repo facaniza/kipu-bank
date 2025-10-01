@@ -65,6 +65,17 @@
 						"internalType": "address",
 						"name": "titular",
 						"type": "address"
+					}
+				],
+				"name": "KipuBank_MontoCero",
+				"type": "error"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "titular",
+						"type": "address"
 					},
 					{
 						"internalType": "uint256",
@@ -241,11 +252,11 @@
 	},
 	"sources": {
 		"contracts/KipuBank.sol": {
-			"keccak256": "0x240cbcb3b20dd824dc6c5128e39524eaf0d1ce575d190f5c16d4b20812749721",
+			"keccak256": "0x823def57916989bcd3075aa065a621e3b8ff489c21b326d3bc8b06c1a3b56afd",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://2ae2a22ab84483f010e1073c228271dcb85147180a1553210e29c3a9c5c514e4",
-				"dweb:/ipfs/Qma8TU8aw9AzCuVbz3EG1HR5UVS2WtcF4oqNoinH2j61Uv"
+				"bzz-raw://75d933af323ca80c397227ed7b1079905be36c63236d1b61aa117a5efc33bbc4",
+				"dweb:/ipfs/QmSwk3tkiSWM6SbTfW1hE1JSfFotgr1JrMtZxypDqdaVgC"
 			]
 		}
 	},
