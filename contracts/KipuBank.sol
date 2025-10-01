@@ -53,8 +53,8 @@ contract KipuBank {
     }
     //@notice modificador para verificar los retiros
     modifier verificarRetiro(uint _monto) {
-        if (_monto > umbral) revert KipuBank_ExtraccionRechazada(msg.sender, _monto);
-        if (_monto > boveda[msg.sender]) revert KipuBank_LimiteExcedido(_monto);
+        if (_monto > umbral) revert KipuBank_LimiteExcedido(_monto);
+        if (_monto > boveda[msg.sender]) revert KipuBank_SaldoInsuficiente(msg.sender, _monto);
         _;
     }
     //@notice funcion privada para realizar el retiro efectivo de fondos
