@@ -63,7 +63,7 @@ contract KipuBank {
     //@param _monto recibe el monto a retirar de la boveda
     function _retirarFondos(uint _monto) private {
         boveda[msg.sender] = boveda[msg.sender] - _monto;
-        retiros = retiros + 1;
+        retiros++;
         totalContrato = totalContrato - _monto;
         
         emit KipuBank_ExtraccionRealizada(msg.sender, _monto);
@@ -80,7 +80,7 @@ contract KipuBank {
     //@dev es payable y usa el modificador de verificarDepositos
     function depositarEnBoveda() external payable verificarDepositos(msg.value) {
         boveda[msg.sender] = boveda[msg.sender] + msg.value;        
-        depositos = depositos + 1;
+        depositos++;
         totalContrato = totalContrato + msg.value;
         emit KipuBank_DepositoRealizado(msg.sender, msg.value);
     }
