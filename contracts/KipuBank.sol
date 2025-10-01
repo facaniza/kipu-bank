@@ -12,14 +12,14 @@ contract KipuBank {
     //@notice limite global de deposito
     uint immutable bankCap;
     //@notice cantidad de depositos del contrato
-    uint private depositos = 0;
+    uint private _depositos = 0;
     //@notice cantidad de retiros del contrato
-    uint private retiros = 0;
+    uint private _retiros = 0;
     //@notice total de ether depositado en el contrato
-    uint private totalContrato = 0;
+    uint private _totalContrato = 0;
 
     //@notice estructura que almacena por titular el monto que posee en la boveda
-    mapping (address titular => uint monto) private boveda;
+    mapping (address titular => uint monto) private _boveda;
 
 
     //@notice Evento para depositos realizado exitosamente
@@ -52,7 +52,7 @@ contract KipuBank {
     //@notice moficador para verificar los depositos
     modifier verificarDepositos(uint _monto) {
         if(_monto <= 0) revert KipuBank_MontoCero(msg.sender);
-        if (_monto + totalContrato >= bankCap) revert KipuBank_LimiteExcedido(_monto);
+        if (_monto + _totalContrato >= bankCap) revert KipuBank_LimiteExcedido(_monto);
         _;
     }
     //@notice modificador para verificar los retiros
@@ -60,15 +60,15 @@ contract KipuBank {
     modifier verificarRetiro(uint _monto) {
         if(_monto <= 0) revert KipuBank_MontoCero(msg.sender);
         if (_monto > umbral) revert KipuBank_UmbralExcedido(_monto);
-        if (_monto > boveda[msg.sender]) revert KipuBank_SaldoInsuficiente(msg.sender, _monto);
+        if (_monto > _boveda[msg.sender]) revert KipuBank_SaldoInsuficiente(msg.sender, _monto);
         _;
     }
     //@notice funcion privada para realizar el retiro efectivo de fondos
     //@param _monto recibe el monto a retirar de la boveda
     function _retirarFondos(uint _monto) private {
-        boveda[msg.sender] = boveda[msg.sender] - _monto;
-        retiros++;
-        totalContrato = totalContrato - _monto;
+        _boveda[msg.sender] -= _monto;
+        _retiros++;
+        _totalContrato -= _monto;
         
         emit KipuBank_ExtraccionRealizada(msg.sender, _monto);
 
@@ -83,27 +83,27 @@ contract KipuBank {
     //@notice funcion para depositar en la boveda
     //@dev es payable y usa el modificador de verificarDepositos
     function depositarEnBoveda() external payable verificarDepositos(msg.value) {
-        boveda[msg.sender] = boveda[msg.sender] + msg.value;        
-        depositos++;
-        totalContrato = totalContrato + msg.value;
+        _boveda[msg.sender] += msg.value;        
+        _depositos++;
+        _totalContrato += msg.value;
         emit KipuBank_DepositoRealizado(msg.sender, msg.value);
     }
     //@notice funcion para ver el saldo guardado en el boveda
     //@return monto_ devuelve el saldo depositado por cada address
     function verBoveda() external view returns (uint monto_) {
-        monto_ = boveda[msg.sender];
+        monto_ = _boveda[msg.sender];
     }
     //@notice funcion para ver la totalidad de los depositos
     function verTotalDepositos() external view returns (uint) {
-        return depositos;
+        return _depositos;
     }
     //@notice funcion para ver la totalidad de los retiros
     function verTotalRetiros() external view returns (uint) {
-        return retiros;
+        return _retiros;
     }
     //@notice funcion para ver el saldo total del contrato
     function verTotalContrato() external view returns (uint) {
-        return totalContrato;
+        return _totalContrato;
     }
 
 }
