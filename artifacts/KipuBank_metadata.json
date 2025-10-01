@@ -92,6 +92,17 @@
 				"type": "error"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "monto",
+						"type": "uint256"
+					}
+				],
+				"name": "KipuBank_UmbralExcedido",
+				"type": "error"
+			},
+			{
 				"anonymous": false,
 				"inputs": [
 					{
@@ -191,11 +202,11 @@
 	},
 	"sources": {
 		"contracts/KipuBank.sol": {
-			"keccak256": "0xe242397cee60f529cee436203fa252e498408db814d5002617fe9a9bb6dd4f86",
+			"keccak256": "0x3ab75edd535e8835f05d20968312eed6dc52dec0ba83c5c5405c3b6121e25a9e",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://3b4d0b3af41fc1b24c84346bd59e8175457ba1404acba005f37ed25f5fd27300",
-				"dweb:/ipfs/QmX1gAE1pRDedodHyfwiJ8dABVVKDwefQLuRK2CJ9XfShA"
+				"bzz-raw://84189f4872b8b1d812434acd07b8f255a63587144500b4aaaf032927084c75b4",
+				"dweb:/ipfs/QmfDMfDKB9AWp1uP36cmEy2T2vqFhFw2JAoKJVLbFXvZih"
 			]
 		}
 	},

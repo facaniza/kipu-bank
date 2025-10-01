@@ -34,8 +34,10 @@ contract KipuBank {
     error KipuBank_MontoInsuficiente(address titular, uint monto);
     //@notice Error por sobrepasarse del limite
     error KipuBank_LimiteExcedido(uint monto);
-    //@notice error por saldo insuficiente
+    //@notice Error por saldo insuficiente
     error KipuBank_SaldoInsuficiente(address titular, uint monto);
+    //@notice Error por umbral excedido
+    error KipuBank_UmbralExcedido(uint monto);
 
     //@notice constructor del contrato
     //@param _limite limite global que se permite por transaccion
@@ -53,7 +55,7 @@ contract KipuBank {
     }
     //@notice modificador para verificar los retiros
     modifier verificarRetiro(uint _monto) {
-        if (_monto > umbral) revert KipuBank_LimiteExcedido(_monto);
+        if (_monto > umbral) revert KipuBank_UmbralExcedido(_monto);
         if (_monto > boveda[msg.sender]) revert KipuBank_SaldoInsuficiente(msg.sender, _monto);
         _;
     }
