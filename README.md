@@ -12,7 +12,7 @@ Permite a los usuarios **depositar y retirar Ether** en una bóveda personal, re
 ## ✨ Features  
 
 - 📥 **Depósitos seguros** → cada usuario tiene su propia bóveda.  
-- 💸 **Retiros limitados** → con umbral fijo (`10 wei`) y verificación de saldo.  
+- 💸 **Retiros limitados** → con umbral declarado en el deploy y verificación de saldo.  
 - 📊 **Estadísticas internas** → número de depósitos, retiros y total de Ether en el contrato.  
 - 🚨 **Custom Errors** → manejo de errores más eficiente en gas.  
 - 🔎 **Eventos de auditoría** → depósitos y retiros registrados on-chain.  
