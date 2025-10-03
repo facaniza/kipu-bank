@@ -26,6 +26,9 @@ Permite a los usuarios **depositar y retirar Ether** en una bóveda personal, re
 | `depositarEnBoveda()`    | `payable` | Permite depositar Ether en la bóveda del titular (con verificación de `bankCap`). |
 | `retirarDeBoveda(uint)`  | `external` | Retira fondos de la bóveda, siempre que no supere el `umbral` ni el saldo disponible. |
 | `verBoveda()`            | `view`   | Devuelve el saldo actual en la bóveda del `msg.sender`. |
+| `verTotalContrato()`     | `view`   | Devuelve el saldo total del contrato. |
+| `verTotalDepositos()`    | `view`   | Devuelve el numero de depositos hechos en el contrato. |
+| `verTotalRetiros()`      | `view`   | Devuelve el numero de retiros hechos en el contrato. |
 
 ---
 
