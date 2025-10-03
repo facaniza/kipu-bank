@@ -52,7 +52,7 @@ No necesitás instalar nada localmente, solo tener **MetaMask** configurado en t
 ### 🚀 Pasos para desplegar  
 
 1. Abre [Remix IDE](https://remix.ethereum.org/).  
-2. En la barra lateral, ve a **File Explorers → Load from GitHub**.  
+2. En la barra arriba a la derecha, ve a sección de **Github** y seleccioná la opción de **Clone**. 
 3. Copia y pega la URL del repositorio de este contrato.
 4. Remix cargará el código del contrato en tu espacio de trabajo.  
 5. Abre el archivo `KipuBank.sol`.  
@@ -60,7 +60,7 @@ No necesitás instalar nada localmente, solo tener **MetaMask** configurado en t
 7. Ve a la pestaña **Deploy & Run Transactions**:  
 - En **Environment**, selecciona **Injected Provider - MetaMask**.  
 - Elegí tu cuenta de MetaMask conectada a Sepolia.  
-- En el campo **argumento del constructor**, ingresa el límite global del banco en **wei** (ej: `100000000000000000000` = 100 ETH).  
+- En el campo **argumento del constructor**, ingresa el límite global y el umbral de retiros del banco en **wei** (ej: `100000000000000000000` = 100 ETH).  
 - Haz clic en **Deploy** y confirma la transacción en MetaMask.  
 
 8. Una vez desplegado, el contrato aparecerá en la sección **Deployed Contracts**.  
@@ -83,8 +83,8 @@ Desde allí podés interactuar con todas sus funciones.
 
 ---
 
-### ⛓️ Dirección del contrato
+### ⛓️ Dirección del contrato verificado
 
 En el siguiente enlace vas a poder encontrar la dirección del contrato en el explorador de bloques:
-```url
-https://sepolia.etherscan.io/address/0x5643a293e97f52A8d21BF98E85934e25E3F70383
+<br>
+- [https://sepolia.etherscan.io/address/0x5643a293e97f52A8d21BF98E85934e25E3F70383](https://sepolia.etherscan.io/address/0x7789bfdd2058bE28C2a30d99f3F5644399Db502B)
