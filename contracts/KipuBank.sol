@@ -44,9 +44,9 @@ contract KipuBank {
 
     //@notice constructor del contrato
     //@param _limite limite global que se permite por transaccion
-    constructor(uint _limite) {
+    constructor(uint _limite, uint _umbral) {
         bankCap = _limite;
-        umbral = 50;
+        umbral = _umbral;
     }
 
     //@notice moficador para verificar los depositos
