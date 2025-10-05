@@ -88,22 +88,6 @@
 						"type": "uint256"
 					}
 				],
-				"name": "KipuBank_MontoInsuficiente",
-				"type": "error"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "titular",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "monto",
-						"type": "uint256"
-					}
-				],
 				"name": "KipuBank_SaldoInsuficiente",
 				"type": "error"
 			},
@@ -230,13 +214,174 @@
 			}
 		],
 		"devdoc": {
+			"author": "Facundo Alejandro Caniza",
+			"errors": {
+				"KipuBank_DepositoRechazado(address,uint256)": [
+					{
+						"params": {
+							"monto": "monto a depositar en la boveda",
+							"titular": "titular que desea realizar el deposito"
+						}
+					}
+				],
+				"KipuBank_ExtraccionRechazada(address,uint256)": [
+					{
+						"params": {
+							"monto": "monto a extraer de la boveda",
+							"titular": "titular de la cuenta a realizar la extracción"
+						}
+					}
+				],
+				"KipuBank_LimiteExcedido(uint256)": [
+					{
+						"params": {
+							"monto": "monto que excede el limite a depositar"
+						}
+					}
+				],
+				"KipuBank_MontoCero(address)": [
+					{
+						"params": {
+							"titular": "titular que emite una transaccion con valor nulo"
+						}
+					}
+				],
+				"KipuBank_SaldoInsuficiente(address,uint256)": [
+					{
+						"params": {
+							"monto": "monto a retirar",
+							"titular": "titular con saldo insuficiente"
+						}
+					}
+				],
+				"KipuBank_UmbralExcedido(uint256)": [
+					{
+						"params": {
+							"monto": "que excede el umbral establecido"
+						}
+					}
+				]
+			},
+			"events": {
+				"KipuBank_DepositoRealizado(address,uint256)": {
+					"params": {
+						"monto": "monto que se desea depositar",
+						"titular": "titular que realiza el deposito"
+					}
+				},
+				"KipuBank_ExtraccionRealizada(address,uint256)": {
+					"params": {
+						"monto": "monto que se desea extraer",
+						"titular": "titular que desea realizar la extracción"
+					}
+				}
+			},
 			"kind": "dev",
-			"methods": {},
+			"methods": {
+				"constructor": {
+					"details": "Se deben general el limite, umbral y status al momento de desplegar el contrato",
+					"params": {
+						"_limite": "limite global que se permite por transaccion",
+						"_umbral": "umbral de limite de retiros"
+					}
+				},
+				"depositarEnBoveda()": {
+					"details": "Es payable y usa el modificador de verificarDepositos"
+				},
+				"retirarDeBoveda(uint256)": {
+					"params": {
+						"_monto": "es el monto a retirar de la boveda"
+					}
+				},
+				"verBoveda()": {
+					"returns": {
+						"monto_": "devuelve el saldo depositado por cada address"
+					}
+				},
+				"verTotalContrato()": {
+					"returns": {
+						"_0": "Devuelve el saldo del contrato"
+					}
+				},
+				"verTotalDepositos()": {
+					"returns": {
+						"_0": "Devuelve la cantidad de depositos"
+					}
+				},
+				"verTotalRetiros()": {
+					"returns": {
+						"_0": "Devuelve la cantidad de retiros"
+					}
+				}
+			},
+			"title": "KipuBank - un banco en blockchain",
 			"version": 1
 		},
 		"userdoc": {
+			"errors": {
+				"KipuBank_DepositoRechazado(address,uint256)": [
+					{
+						"notice": "Error de Deposito"
+					}
+				],
+				"KipuBank_ExtraccionRechazada(address,uint256)": [
+					{
+						"notice": "Error de extraccion"
+					}
+				],
+				"KipuBank_LimiteExcedido(uint256)": [
+					{
+						"notice": "Error por sobrepasarse del limite"
+					}
+				],
+				"KipuBank_MontoCero(address)": [
+					{
+						"notice": "Error monto cero"
+					}
+				],
+				"KipuBank_SaldoInsuficiente(address,uint256)": [
+					{
+						"notice": "Error por saldo insuficiente"
+					}
+				],
+				"KipuBank_UmbralExcedido(uint256)": [
+					{
+						"notice": "Error por umbral excedido"
+					}
+				]
+			},
+			"events": {
+				"KipuBank_DepositoRealizado(address,uint256)": {
+					"notice": "Evento para depositos realizado exitosamente"
+				},
+				"KipuBank_ExtraccionRealizada(address,uint256)": {
+					"notice": "Evento para extracciones realizadas exitosamente"
+				}
+			},
 			"kind": "user",
-			"methods": {},
+			"methods": {
+				"constructor": {
+					"notice": "Constructor del contrato"
+				},
+				"depositarEnBoveda()": {
+					"notice": "Funcion para depositar en la boveda"
+				},
+				"retirarDeBoveda(uint256)": {
+					"notice": "Funcion externa para realizar el retiro de saldo"
+				},
+				"verBoveda()": {
+					"notice": "Funcion para ver el saldo guardado en el boveda"
+				},
+				"verTotalContrato()": {
+					"notice": "Funcion para ver el saldo total del contrato"
+				},
+				"verTotalDepositos()": {
+					"notice": "Funcion para ver la totalidad de los depositos"
+				},
+				"verTotalRetiros()": {
+					"notice": "Funcion para ver la totalidad de los retiros"
+				}
+			},
 			"version": 1
 		}
 	},
@@ -257,11 +402,11 @@
 	},
 	"sources": {
 		"contracts/KipuBank.sol": {
-			"keccak256": "0x6f53d08cf6997f93598e4eab7f193025e80e33cedf8c18a1599edade8e75b381",
+			"keccak256": "0x5aea489748f09a37699dafab057d3d776bc48664a646263e1e8c18abcc8fc9d0",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://7819e025835a4b3031107d9927c4f20e68a29e19c10e4a85ffb9d516c2ea6347",
-				"dweb:/ipfs/Qmd4Yhht8fbXRvknJpbbUohHatpPoYbebtzgazV2EudrVd"
+				"bzz-raw://fd8e8d93c1c202dd6730c05c4917ca1bf2aeed36019cc09160c871363c27f3e0",
+				"dweb:/ipfs/QmVst6CzX9X9cML4wHYrZRn3AUvvCKeDBwpUHuVsLubZgM"
 			]
 		}
 	},

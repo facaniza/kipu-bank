@@ -1,9 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.30;
-/*
-    @title KipuBank - un banco en blockchain
-    @author Facundo Alejandro Caniza
-*/
+    /// @title KipuBank - un banco en blockchain
+    /// @author Facundo Alejandro Caniza
 contract KipuBank {
 
     /// @notice Umbral para fijo para transaccion
@@ -20,7 +18,7 @@ contract KipuBank {
     uint private constant _NO_ENTERED = 1;
     /// @notice Variable privada que sirve de flag de entrada
     uint private constant _ENTERED = 2;
-    /// @notice Variable privada del estatus de la reentranda
+    /// @notice Variable privada del estatus de la reentrada
     uint private _status;
 
     /// @notice Estructura que almacena por titular el monto que posee en la boveda
@@ -28,24 +26,19 @@ contract KipuBank {
 
 
     /// @notice Evento para depositos realizado exitosamente
+    /// @param titular titular que realiza el deposito
+    /// @param monto monto que se desea depositar
     event KipuBank_DepositoRealizado(address titular, uint monto);
+
     /// @notice Evento para extracciones realizadas exitosamente
+    /// @param titular titular que desea realizar la extracción
+    /// @param monto monto que se desea extraer
     event KipuBank_ExtraccionRealizada(address titular, uint monto);
 
     /// @notice Error de extraccion
     /// @param titular titular de la cuenta a realizar la extracción
     /// @param monto monto a extraer de la boveda
     error KipuBank_ExtraccionRechazada(address titular, uint monto);
-
-    /// @notice Error de Deposito
-    /// @param titular titular que desea realizar el deposito
-    /// @param monto monto a depositar en la boveda
-    error KipuBank_DepositoRechazado(address titular, uint monto);
-
-    /// @notice Error monto insuficiente
-    /// @param titular titular de la cuenta
-    /// @param monto monto que excede el saldo
-    error KipuBank_MontoInsuficiente(address titular, uint monto);
 
     /// @notice Error por sobrepasarse del limite
     /// @param monto monto que excede el limite a depositar
@@ -67,13 +60,18 @@ contract KipuBank {
     /// @notice Constructor del contrato
     /// @param _limite limite global que se permite por transaccion
     /// @param _umbral umbral de limite de retiros
+    /// @dev Se deben general el limite, umbral y status al momento de desplegar el contrato
     constructor(uint _limite, uint _umbral) {
+        require(_limite > 0, "Limite invalido");
+        require(_umbral > 0, "Umbral invalido");
+        require(_umbral <= _limite, "El umbral no puede ser mas alto que el limite");
         bankCap = _limite;
         umbral = _umbral;
         _status = _NO_ENTERED;
     }
 
-    /// @notice Modificador que permite verificar la no reentrada a una función externa
+    /// @notice Modificador que permite verificar la no reentrada a una función externa - nonReentrat Guard
+    /// @dev Se debe cumplir el patrón CEI y aplicar a todas aquellas funciones que hagan transacciones a terceros
     modifier nonReentrant() {
         require(_status != _ENTERED, "Reentrant denied!");
         _status = _ENTERED;
@@ -90,7 +88,7 @@ contract KipuBank {
     }
     /// @notice Modificador para verificar los retiros
     /// @param _monto monto a verificar para el retiro
-    /// @dev el umbral solo se aplica a los retiros de boveda
+    /// @dev El umbral solo se aplica a los retiros de boveda
     modifier verificarRetiro(uint _monto) {
         if(_monto == 0) revert KipuBank_MontoCero(msg.sender);
         if (_monto > umbral) revert KipuBank_UmbralExcedido(_monto);
@@ -99,6 +97,7 @@ contract KipuBank {
     }
     /// @notice Funcion privada para realizar el retiro efectivo de fondos
     /// @param _monto recibe el monto a retirar de la boveda
+    /// @dev Se actualiza el estado antes de la transferencia para aplicar el patrón CEI
     function _retirarFondos(uint _monto) private nonReentrant {
         _boveda[msg.sender] -= _monto;
         _retiros++;
@@ -106,8 +105,8 @@ contract KipuBank {
         
         emit KipuBank_ExtraccionRealizada(msg.sender, _monto);
 
-        (bool succes, ) = payable(msg.sender).call{value: _monto}("");
-        if (!succes) revert KipuBank_ExtraccionRechazada(msg.sender, _monto);
+        (bool success, ) = payable(msg.sender).call{value: _monto}("");
+        if (!success) revert KipuBank_ExtraccionRechazada(msg.sender, _monto);
     }
     /// @notice Funcion externa para realizar el retiro de saldo
     /// @param _monto es el monto a retirar de la boveda
