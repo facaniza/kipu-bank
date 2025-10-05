@@ -93,7 +93,7 @@ KipuBank implementa una **defensa de triple capa** contra ataques de reentrancy,
 - **Verificación de Call**: Validación automática del resultado con revert en caso de fallo
 ```solidity
 modifier nonReentrant() {
-    if(_status == _ENTERED) revert KipuBank_NonReentrant(address titular);
+    if(_status == _ENTERED) revert KipuBank_NonReentrant(msg.sender);
     _status = _ENTERED;
     _;
     _status = _NO_ENTERED;
