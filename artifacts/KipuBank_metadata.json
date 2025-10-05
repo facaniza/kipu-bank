@@ -34,22 +34,6 @@
 						"type": "uint256"
 					}
 				],
-				"name": "KipuBank_DepositoRechazado",
-				"type": "error"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "titular",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "monto",
-						"type": "uint256"
-					}
-				],
 				"name": "KipuBank_ExtraccionRechazada",
 				"type": "error"
 			},
@@ -216,14 +200,6 @@
 		"devdoc": {
 			"author": "Facundo Alejandro Caniza",
 			"errors": {
-				"KipuBank_DepositoRechazado(address,uint256)": [
-					{
-						"params": {
-							"monto": "monto a depositar en la boveda",
-							"titular": "titular que desea realizar el deposito"
-						}
-					}
-				],
 				"KipuBank_ExtraccionRechazada(address,uint256)": [
 					{
 						"params": {
@@ -279,7 +255,7 @@
 			"kind": "dev",
 			"methods": {
 				"constructor": {
-					"details": "Se deben general el limite, umbral y status al momento de desplegar el contrato",
+					"details": "Se deben generar el limite, umbral y status al momento de desplegar el contrato",
 					"params": {
 						"_limite": "limite global que se permite por transaccion",
 						"_umbral": "umbral de limite de retiros"
@@ -319,11 +295,6 @@
 		},
 		"userdoc": {
 			"errors": {
-				"KipuBank_DepositoRechazado(address,uint256)": [
-					{
-						"notice": "Error de Deposito"
-					}
-				],
 				"KipuBank_ExtraccionRechazada(address,uint256)": [
 					{
 						"notice": "Error de extraccion"
@@ -402,11 +373,11 @@
 	},
 	"sources": {
 		"contracts/KipuBank.sol": {
-			"keccak256": "0x5aea489748f09a37699dafab057d3d776bc48664a646263e1e8c18abcc8fc9d0",
+			"keccak256": "0x5ae40778ee5d4a6668836dddd7a85f466243c5ca28db1a7d7e28aa5f3aabbdd3",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://fd8e8d93c1c202dd6730c05c4917ca1bf2aeed36019cc09160c871363c27f3e0",
-				"dweb:/ipfs/QmVst6CzX9X9cML4wHYrZRn3AUvvCKeDBwpUHuVsLubZgM"
+				"bzz-raw://af87409ff37d8cec40935a04afe15690ba4557627b3aaf2c4600f13e1f5f8400",
+				"dweb:/ipfs/QmTUvHxM2Yy31irJeVWLcPKqKvZdhL9W7kWBVHZ453jA4K"
 			]
 		}
 	},
