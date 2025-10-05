@@ -36,24 +36,30 @@ contract KipuBank {
     //@param titular titular de la cuenta a realizar la extracción
     //@param monto monto a extraer de la boveda
     error KipuBank_ExtraccionRechazada(address titular, uint monto);
+
     //@notice Error de Deposito
     //@param titular titular que desea realizar el deposito
     //@param monto monto a depositar en la boveda
     error KipuBank_DepositoRechazado(address titular, uint monto);
+
     //@notice Error monto insuficiente
     //@param titular titular de la cuenta
     //@param monto monto que excede el saldo
     error KipuBank_MontoInsuficiente(address titular, uint monto);
+
     //@notice Error por sobrepasarse del limite
     //@param monto monto que excede el limite a depositar
     error KipuBank_LimiteExcedido(uint monto);
+
     //@notice Error por saldo insuficiente
     //@param titular titular con saldo insuficiente
     //@parama monto monto a retirar
     error KipuBank_SaldoInsuficiente(address titular, uint monto);
+
     //@notice Error por umbral excedido
     //@param monto que excede el umbral establecido
     error KipuBank_UmbralExcedido(uint monto);
+    
     //@notice Error monto cero
     //@param titular titular que emite una transaccion con valor nulo
     error KipuBank_MontoCero(address titular);
