@@ -6,23 +6,24 @@ pragma solidity 0.8.30;
 */
 contract KipuBank {
 
-    //@notice umbral para fijo para transaccion
-    //@dev el umbral es arbitrario y debe ser establecido segun criterios
+    //@notice Umbral para fijo para transaccion
     uint immutable umbral;
-    //@notice limite global de deposito
+    //@notice Limite global de deposito
     uint immutable bankCap;
-    //@notice cantidad de depositos del contrato
+    //@notice Cantidad de depositos del contrato
     uint private _depositos = 0;
-    //@notice cantidad de retiros del contrato
+    //@notice Cantidad de retiros del contrato
     uint private _retiros = 0;
-    //@notice total de ether depositado en el contrato
+    //@notice Total de ether depositado en el contrato
     uint private _totalContrato = 0;
-    
+    //@notice Variable privada que sirve de flag de no-entrada
     uint private constant _NO_ENTERED = 1;
+    //@notice Variable privada que sirve de flag de entrada
     uint private constant _ENTERED = 2;
+    //@notice Variable privada del estatus de la reentranda
     uint private _status;
 
-    //@notice estructura que almacena por titular el monto que posee en la boveda
+    //@notice Estructura que almacena por titular el monto que posee en la boveda
     mapping (address titular => uint monto) private _boveda;
 
 
@@ -32,28 +33,41 @@ contract KipuBank {
     event KipuBank_ExtraccionRealizada(address titular, uint monto);
 
     //@notice Error de extraccion
+    //@param titular titular de la cuenta a realizar la extracción
+    //@param monto monto a extraer de la boveda
     error KipuBank_ExtraccionRechazada(address titular, uint monto);
     //@notice Error de Deposito
+    //@param titular titular que desea realizar el deposito
+    //@param monto monto a depositar en la boveda
     error KipuBank_DepositoRechazado(address titular, uint monto);
     //@notice Error monto insuficiente
+    //@param titular titular de la cuenta
+    //@param monto monto que excede el saldo
     error KipuBank_MontoInsuficiente(address titular, uint monto);
     //@notice Error por sobrepasarse del limite
+    //@param monto monto que excede el limite a depositar
     error KipuBank_LimiteExcedido(uint monto);
     //@notice Error por saldo insuficiente
+    //@param titular titular con saldo insuficiente
+    //@parama monto monto a retirar
     error KipuBank_SaldoInsuficiente(address titular, uint monto);
     //@notice Error por umbral excedido
+    //@param monto que excede el umbral establecido
     error KipuBank_UmbralExcedido(uint monto);
     //@notice Error monto cero
+    //@param titular titular que emite una transaccion con valor nulo
     error KipuBank_MontoCero(address titular);
 
-    //@notice constructor del contrato
+    //@notice Constructor del contrato
     //@param _limite limite global que se permite por transaccion
+    //@param _umbral umbral de limite de retiros
     constructor(uint _limite, uint _umbral) {
         bankCap = _limite;
         umbral = _umbral;
         _status = _NO_ENTERED;
     }
 
+    //@notice Modificador que permite verificar la no reentrada a una función externa
     modifier nonReentrant() {
         require(_status != _ENTERED, "Reentrant denied!");
         _status = _ENTERED;
@@ -61,13 +75,15 @@ contract KipuBank {
         _status = _NO_ENTERED;
     }
 
-    //@notice moficador para verificar los depositos
+    //@notice Moficador para verificar los depositos
+    //@param _monto es el monto a verificar
     modifier verificarDepositos(uint _monto) {
         if(_monto == 0) revert KipuBank_MontoCero(msg.sender);
         if (_monto + _totalContrato > bankCap) revert KipuBank_LimiteExcedido(_monto);
         _;
     }
     //@notice modificador para verificar los retiros
+    //@param _monto monto a verificar para el retiro
     //@dev el umbral solo se aplica a los retiros de boveda
     modifier verificarRetiro(uint _monto) {
         if(_monto == 0) revert KipuBank_MontoCero(msg.sender);
