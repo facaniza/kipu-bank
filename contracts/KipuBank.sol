@@ -60,7 +60,7 @@ contract KipuBank {
     /// @notice Constructor del contrato
     /// @param _limite limite global que se permite por transaccion
     /// @param _umbral umbral de limite de retiros
-    /// @dev Se deben general el limite, umbral y status al momento de desplegar el contrato
+    /// @dev Se deben generar el limite, umbral y status al momento de desplegar el contrato
     constructor(uint _limite, uint _umbral) {
         require(_limite > 0, "Limite invalido");
         require(_umbral > 0, "Umbral invalido");
@@ -79,7 +79,7 @@ contract KipuBank {
         _status = _NO_ENTERED;
     }
 
-    /// @notice Moficador para verificar los depositos
+    /// @notice Modificador para verificar los depositos
     /// @param _monto es el monto a verificar
     modifier verificarDepositos(uint _monto) {
         if(_monto == 0) revert KipuBank_MontoCero(msg.sender);
