@@ -41,11 +41,38 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
+						"name": "limite",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "umbral",
+						"type": "uint256"
+					}
+				],
+				"name": "KipuBank_InicializacionInvalida",
+				"type": "error"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
 						"name": "monto",
 						"type": "uint256"
 					}
 				],
 				"name": "KipuBank_LimiteExcedido",
+				"type": "error"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "limite",
+						"type": "uint256"
+					}
+				],
+				"name": "KipuBank_LimiteInvalido",
 				"type": "error"
 			},
 			{
@@ -57,6 +84,28 @@
 					}
 				],
 				"name": "KipuBank_MontoCero",
+				"type": "error"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "titular",
+						"type": "address"
+					}
+				],
+				"name": "KipuBank_NonReentrant",
+				"type": "error"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "titular",
+						"type": "address"
+					}
+				],
+				"name": "KipuBank_OperacionNoPermitida",
 				"type": "error"
 			},
 			{
@@ -84,6 +133,17 @@
 					}
 				],
 				"name": "KipuBank_UmbralExcedido",
+				"type": "error"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "umbral",
+						"type": "uint256"
+					}
+				],
+				"name": "KipuBank_UmbralInvalido",
 				"type": "error"
 			},
 			{
@@ -123,6 +183,10 @@
 				],
 				"name": "KipuBank_ExtraccionRealizada",
 				"type": "event"
+			},
+			{
+				"stateMutability": "payable",
+				"type": "fallback"
 			},
 			{
 				"inputs": [],
@@ -195,6 +259,10 @@
 				],
 				"stateMutability": "view",
 				"type": "function"
+			},
+			{
+				"stateMutability": "payable",
+				"type": "receive"
 			}
 		],
 		"devdoc": {
@@ -208,6 +276,14 @@
 						}
 					}
 				],
+				"KipuBank_InicializacionInvalida(uint256,uint256)": [
+					{
+						"params": {
+							"limite": "limite del contrato",
+							"umbral": "umbral del contrato"
+						}
+					}
+				],
 				"KipuBank_LimiteExcedido(uint256)": [
 					{
 						"params": {
@@ -215,10 +291,31 @@
 						}
 					}
 				],
+				"KipuBank_LimiteInvalido(uint256)": [
+					{
+						"params": {
+							"limite": "limite que es invalido"
+						}
+					}
+				],
 				"KipuBank_MontoCero(address)": [
 					{
 						"params": {
 							"titular": "titular que emite una transaccion con valor nulo"
+						}
+					}
+				],
+				"KipuBank_NonReentrant(address)": [
+					{
+						"params": {
+							"titular": "titular que provoco la reentrada a la funcion externa"
+						}
+					}
+				],
+				"KipuBank_OperacionNoPermitida(address)": [
+					{
+						"params": {
+							"titular": "titular que realizo la operacion no permitida"
 						}
 					}
 				],
@@ -234,6 +331,13 @@
 					{
 						"params": {
 							"monto": "que excede el umbral establecido"
+						}
+					}
+				],
+				"KipuBank_UmbralInvalido(uint256)": [
+					{
+						"params": {
+							"umbral": "umbral que es invalido"
 						}
 					}
 				]
@@ -300,14 +404,34 @@
 						"notice": "Error de extraccion"
 					}
 				],
+				"KipuBank_InicializacionInvalida(uint256,uint256)": [
+					{
+						"notice": "Error de umbral mayor al limite"
+					}
+				],
 				"KipuBank_LimiteExcedido(uint256)": [
 					{
 						"notice": "Error por sobrepasarse del limite"
 					}
 				],
+				"KipuBank_LimiteInvalido(uint256)": [
+					{
+						"notice": "Error por limite invalido"
+					}
+				],
 				"KipuBank_MontoCero(address)": [
 					{
 						"notice": "Error monto cero"
+					}
+				],
+				"KipuBank_NonReentrant(address)": [
+					{
+						"notice": "Error de reentrada"
+					}
+				],
+				"KipuBank_OperacionNoPermitida(address)": [
+					{
+						"notice": "Error por operacion no permitida"
 					}
 				],
 				"KipuBank_SaldoInsuficiente(address,uint256)": [
@@ -318,6 +442,11 @@
 				"KipuBank_UmbralExcedido(uint256)": [
 					{
 						"notice": "Error por umbral excedido"
+					}
+				],
+				"KipuBank_UmbralInvalido(uint256)": [
+					{
+						"notice": "Error por umbral invalido"
 					}
 				]
 			},
@@ -373,11 +502,11 @@
 	},
 	"sources": {
 		"contracts/KipuBank.sol": {
-			"keccak256": "0x5ae40778ee5d4a6668836dddd7a85f466243c5ca28db1a7d7e28aa5f3aabbdd3",
+			"keccak256": "0xbc9015e6168e18e54d6243489c1a94f9a409b4c9b0976b5b8dfd9094d53c41b9",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://af87409ff37d8cec40935a04afe15690ba4557627b3aaf2c4600f13e1f5f8400",
-				"dweb:/ipfs/QmTUvHxM2Yy31irJeVWLcPKqKvZdhL9W7kWBVHZ453jA4K"
+				"bzz-raw://c90f90a06cd950541fb851feb7a0bf148d46245139d1be7cec5a7c1c4539a385",
+				"dweb:/ipfs/Qmd8MgpMBqAcLpw29SqAoMWwz8rr1cjggXGtogAZbcneFu"
 			]
 		}
 	},

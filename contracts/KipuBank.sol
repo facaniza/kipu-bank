@@ -57,23 +57,51 @@ contract KipuBank {
     /// @param titular titular que emite una transaccion con valor nulo
     error KipuBank_MontoCero(address titular);
 
+    /// @notice Error de reentrada
+    /// @param titular titular que provoco la reentrada a la funcion externa
+    error KipuBank_NonReentrant(address titular);
+
+    /// @notice Error por umbral invalido
+    /// @param umbral umbral que es invalido
+    error KipuBank_UmbralInvalido(uint umbral);
+
+    /// @notice Error por limite invalido
+    /// @param limite limite que es invalido
+    error KipuBank_LimiteInvalido(uint limite);
+
+    /// @notice Error de umbral mayor al limite
+    /// @param umbral umbral del contrato
+    /// @param limite limite del contrato
+    error KipuBank_InicializacionInvalida(uint limite, uint umbral);
+
+    /// @notice Error por operacion no permitida
+    /// @param titular titular que realizo la operacion no permitida
+    error KipuBank_OperacionNoPermitida(address titular);
+
     /// @notice Constructor del contrato
     /// @param _limite limite global que se permite por transaccion
     /// @param _umbral umbral de limite de retiros
     /// @dev Se deben generar el limite, umbral y status al momento de desplegar el contrato
     constructor(uint _limite, uint _umbral) {
-        require(_limite > 0, "Limite invalido");
-        require(_umbral > 0, "Umbral invalido");
-        require(_umbral <= _limite, "El umbral no puede ser mas alto que el limite");
+        if(_limite == 0) revert KipuBank_LimiteInvalido(_limite);
+        if(_umbral == 0) revert KipuBank_UmbralInvalido(_umbral);
+        if(_umbral > _limite) revert KipuBank_InicializacionInvalida(_limite, _umbral);
         bankCap = _limite;
         umbral = _umbral;
         _status = _NO_ENTERED;
     }
 
+    /// @notice Funcion receive() no permitida
+    /// @dev El contrato no puede recibir ether sin data
+    receive() external payable { revert KipuBank_OperacionNoPermitida(msg.sender); }
+    /// @notice Funcion fallback() no permitida
+    /// @dev El contrato no puede enviar data de manera no autorizada
+    fallback() external payable { revert KipuBank_OperacionNoPermitida(msg.sender); }
+
     /// @notice Modificador que permite verificar la no reentrada a una función externa - nonReentrat Guard
     /// @dev Se debe cumplir el patrón CEI y aplicar a todas aquellas funciones que hagan transacciones a terceros
     modifier nonReentrant() {
-        require(_status != _ENTERED, "Reentrant denied!");
+        if (_status == _ENTERED) revert KipuBank_NonReentrant(msg.sender);
         _status = _ENTERED;
         _;
         _status = _NO_ENTERED;
