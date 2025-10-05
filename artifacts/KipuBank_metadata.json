@@ -373,11 +373,11 @@
 	},
 	"sources": {
 		"contracts/KipuBank.sol": {
-			"keccak256": "0x5ae40778ee5d4a6668836dddd7a85f466243c5ca28db1a7d7e28aa5f3aabbdd3",
+			"keccak256": "0xf4e915abc9bd3570ef73e004aec70220827e434d0f62eb9c543c2a06a87af846",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://af87409ff37d8cec40935a04afe15690ba4557627b3aaf2c4600f13e1f5f8400",
-				"dweb:/ipfs/QmTUvHxM2Yy31irJeVWLcPKqKvZdhL9W7kWBVHZ453jA4K"
+				"bzz-raw://278178290c8095a72cc928ebef01dc3228fe7c9b88701d5694c1be6113ff14ff",
+				"dweb:/ipfs/QmXEooEk8vT2KTE8JR2qeJcXZbum7XPhKekLyB6R4FpJhp"
 			]
 		}
 	},
