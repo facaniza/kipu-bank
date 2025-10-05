@@ -93,7 +93,7 @@ KipuBank implementa una **defensa de triple capa** contra ataques de reentrancy,
 - **Verificación de Call**: Validación automática del resultado con revert en caso de fallo
 ```solidity
 modifier nonReentrant() {
-    require(_status != _ENTERED, "Reentrant denied!");
+    if(_status == _ENTERED) revert KipuBank_NonReentrant(address titular);
     _status = _ENTERED;
     _;
     _status = _NO_ENTERED;
@@ -105,4 +105,4 @@ modifier nonReentrant() {
 
 En el siguiente enlace vas a poder encontrar la dirección del contrato en el explorador de bloques:
 <br>
-   - https://sepolia.etherscan.io/address/0xA6198AD70eEa81ce1D1C1c10BABf3A05094eD9a5
+   - https://sepolia.etherscan.io/address/0xF4f67F0C94b47E5679ec4Fa4AbD7b61fa39c0b80#code
