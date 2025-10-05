@@ -83,8 +83,26 @@ Desde allí podés interactuar con todas sus funciones.
 
 ---
 
+## 🛡️ Protección Anti-Reentrancy: Tu Dinero Está Seguro
+
+KipuBank implementa una **defensa de triple capa** contra ataques de reentrancy, uno de los vectores de ataque más peligrosos en smart contracts (responsable del hack de The DAO en 2016 que resultó en $60 millones de pérdidas):
+
+**🔐 Sistema de Seguridad Multicapa:**
+- **Patrón CEI** (Checks-Effects-Interactions): Actualizamos el estado antes de cualquier llamada externa
+- **NonReentrant Guard**: Sistema de bloqueo que previene llamadas recursivas maliciosas  
+- **Verificación de Call**: Validación automática del resultado con revert en caso de fallo
+```solidity
+modifier nonReentrant() {
+    require(_status != _ENTERED, "Reentrant denied!");
+    _status = _ENTERED;
+    _;
+    _status = _NO_ENTERED;
+}
+```
+
+---
 ### ⛓️ Dirección del contrato verificado
 
 En el siguiente enlace vas a poder encontrar la dirección del contrato en el explorador de bloques:
 <br>
-- [https://sepolia.etherscan.io/address/0x5643a293e97f52A8d21BF98E85934e25E3F70383](https://sepolia.etherscan.io/address/0x7789bfdd2058bE28C2a30d99f3F5644399Db502B)
+   - https://sepolia.etherscan.io/address/0xA6198AD70eEa81ce1D1C1c10BABf3A05094eD9a5
