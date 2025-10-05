@@ -62,8 +62,8 @@ contract KipuBank {
     /// @param _umbral umbral de limite de retiros
     /// @dev Se deben generar el limite, umbral y status al momento de desplegar el contrato
     constructor(uint _limite, uint _umbral) {
-        require(_limite == 0, "Limite invalido");
-        require(_umbral == 0, "Umbral invalido");
+        require(_limite > 0, "Limite invalido");
+        require(_umbral > 0, "Umbral invalido");
         require(_umbral <= _limite, "El umbral no puede ser mas alto que el limite");
         bankCap = _limite;
         umbral = _umbral;
