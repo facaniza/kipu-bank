@@ -63,14 +63,14 @@ contract KipuBank {
 
     //@notice moficador para verificar los depositos
     modifier verificarDepositos(uint _monto) {
-        if(_monto <= 0) revert KipuBank_MontoCero(msg.sender);
-        if (_monto + _totalContrato >= bankCap) revert KipuBank_LimiteExcedido(_monto);
+        if(_monto == 0) revert KipuBank_MontoCero(msg.sender);
+        if (_monto + _totalContrato > bankCap) revert KipuBank_LimiteExcedido(_monto);
         _;
     }
     //@notice modificador para verificar los retiros
     //@dev el umbral solo se aplica a los retiros de boveda
     modifier verificarRetiro(uint _monto) {
-        if(_monto <= 0) revert KipuBank_MontoCero(msg.sender);
+        if(_monto == 0) revert KipuBank_MontoCero(msg.sender);
         if (_monto > umbral) revert KipuBank_UmbralExcedido(_monto);
         if (_monto > _boveda[msg.sender]) revert KipuBank_SaldoInsuficiente(msg.sender, _monto);
         _;
