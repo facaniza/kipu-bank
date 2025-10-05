@@ -17,6 +17,10 @@ contract KipuBank {
     uint private _retiros = 0;
     //@notice total de ether depositado en el contrato
     uint private _totalContrato = 0;
+    
+    uint private constant _NO_ENTERED = 1;
+    uint private constant _ENTERED = 2;
+    uint private _status;
 
     //@notice estructura que almacena por titular el monto que posee en la boveda
     mapping (address titular => uint monto) private _boveda;
@@ -47,6 +51,14 @@ contract KipuBank {
     constructor(uint _limite, uint _umbral) {
         bankCap = _limite;
         umbral = _umbral;
+        _status = _NO_ENTERED;
+    }
+
+    modifier nonReentrant() {
+        require(_status != _ENTERED, "Reentrant denied!");
+        _status = _ENTERED;
+        _;
+        _status = _NO_ENTERED;
     }
 
     //@notice moficador para verificar los depositos
@@ -65,7 +77,7 @@ contract KipuBank {
     }
     //@notice funcion privada para realizar el retiro efectivo de fondos
     //@param _monto recibe el monto a retirar de la boveda
-    function _retirarFondos(uint _monto) private {
+    function _retirarFondos(uint _monto) private nonReentrant {
         _boveda[msg.sender] -= _monto;
         _retiros++;
         _totalContrato -= _monto;

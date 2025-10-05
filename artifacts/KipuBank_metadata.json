@@ -11,6 +11,11 @@
 						"internalType": "uint256",
 						"name": "_limite",
 						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_umbral",
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "nonpayable",
@@ -252,11 +257,11 @@
 	},
 	"sources": {
 		"contracts/KipuBank.sol": {
-			"keccak256": "0x88a34d75757aec58b3773147b5ac8c29f279bbba076b71e854be801e0697b1bd",
+			"keccak256": "0x6f53d08cf6997f93598e4eab7f193025e80e33cedf8c18a1599edade8e75b381",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://b649a79692204674488297f63c831c376dc4d1b1866ef13224fbdb80113f7d1e",
-				"dweb:/ipfs/Qmd3DkU96GGAjR9U8CzPgJXRzmCDAqha1w5X7uPFyHAgy2"
+				"bzz-raw://7819e025835a4b3031107d9927c4f20e68a29e19c10e4a85ffb9d516c2ea6347",
+				"dweb:/ipfs/Qmd4Yhht8fbXRvknJpbbUohHatpPoYbebtzgazV2EudrVd"
 			]
 		}
 	},
