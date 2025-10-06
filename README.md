@@ -103,4 +103,4 @@ modifier nonReentrant() {
 
 En el siguiente enlace vas a poder encontrar la dirección del contrato en el explorador de bloques:
 <br>
-   - https://sepolia.etherscan.io/address/0xF4f67F0C94b47E5679ec4Fa4AbD7b61fa39c0b80#code
+   - https://sepolia.etherscan.io/address/0xF4f67F0C94b47E5679ec4Fa4AbD7b61fa39c0b80
