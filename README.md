@@ -1,8 +1,6 @@
 # 🏦 KipuBank  
 
-![Solidity](https://img.shields.io/badge/Solidity-0.8.30-blue.svg?logo=ethereum)  
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)  
-![Status](https://img.shields.io/badge/status-active-success.svg)  
+![Solidity](https://img.shields.io/badge/Solidity-0.8.30-blue.svg?logo=ethereum)  ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)  ![Status](https://img.shields.io/badge/status-active-success.svg)  
 
 **KipuBank** es un contrato inteligente de Ethereum que funciona como un **banco descentralizado en blockchain**.  
 Permite a los usuarios **depositar y retirar Ether** en una bóveda personal, respetando reglas de seguridad y límites configurables.  
